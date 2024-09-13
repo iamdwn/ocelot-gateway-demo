@@ -1,3 +1,5 @@
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 
 namespace OcelotGateway
 {
@@ -7,12 +9,18 @@ namespace OcelotGateway
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //Config Ocelot
+            IConfiguration configuration = new ConfigurationBuilder()
+                                        .AddJsonFile("ocelot.json")
+                                        .Build();
+
             // Add services to the container.
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddOcelot(configuration);
 
             var app = builder.Build();
 
@@ -25,8 +33,9 @@ namespace OcelotGateway
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseOcelot();
 
+            app.UseAuthorization();
 
             app.MapControllers();
 
