@@ -27,5 +27,46 @@
   ],
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:5021"
-  }
+  },
+
+
+  // https://localhost:1111/duong
+  // https://localhost:2222/dozun
+  //"Routes": [
+  //  {
+  //    "DownstreamPathTemplate": "/cart-api/{controller}/{action}",
+  //    "DownstreamScheme": "https",
+  //    "DownstreamHostAndPorts": [
+  //      {
+  //        "Host": "localhost",
+  //        "Port": 1111
+  //      }
+  //    ],
+  //    "UpstreamPathTemplate": "/cart-gateway/{controller}/{action}",
+  //    "UpstreamHttpMethod": [ "Get" ],
+  //    "Key": "Duong"
+  //  },
+  //  {
+  //    "DownstreamPathTemplate": "/product-api/{controller}/{action}",
+  //    "DownstreamScheme": "https",
+  //    "DownstreamHostAndPorts": [
+  //      {
+  //        "Host": "localhost",
+  //        "Port": 2222
+  //      }
+  //    ],
+  //    "UpstreamPathTemplate": "/product-gateway/{controller}/{action}",
+  //    "UpstreamHttpMethod": [ "Get" ],
+  //    "Key": "Dozun"
+  //  }
+  //],
+  //"Aggregates",
+  //:,
+  //{
+  //  "RoutesKey": [
+  //    "Duong",
+  //    "Dozun"
+  //  ],
+  //  "UpstreamPathTemplate": "/"
+  //}
 }
