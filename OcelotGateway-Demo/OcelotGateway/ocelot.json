@@ -43,8 +43,17 @@
         }
       ],
       "UpstreamPathTemplate": "/cart-gateway/{controller}/{action}",
-      "UpstreamHttpMethod": [ "Get" ]
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [],       //ip trong day se k bi anh huong boi rate limiting
+        "EnableRateLimiting": true,  //bat rate limiting
+        "Period": "15s",             //thoi gian rate limiting
+        "PeriodTimespan": 1,         //sau so giay nay co the gui lai request
+        "Limit": 1                   //so request toi da
+      }
     },
+
+    //PRODUCT SERVICE
     {
       "DownstreamPathTemplate": "/product-api/{controller}/{action}",
       "DownstreamScheme": "https",
