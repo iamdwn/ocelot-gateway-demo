@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using System.Text;
 
 namespace OcelotGateway
 {
@@ -13,6 +16,27 @@ namespace OcelotGateway
             IConfiguration configuration = new ConfigurationBuilder()
                                         .AddJsonFile("ocelot.json")
                                         .Build();
+
+            #region Authen
+            var key = Encoding.ASCII.GetBytes("dozun key");
+            builder.Services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuerSigningKey = true,
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+            #endregion
 
             // Add services to the container.
 
@@ -33,7 +57,9 @@ namespace OcelotGateway
 
             app.UseHttpsRedirection();
 
-            app.UseOcelot();
+            app.UseAuthentication();
+
+            app.UseOcelot().Wait();
 
             app.UseAuthorization();
 
