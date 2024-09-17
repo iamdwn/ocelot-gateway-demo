@@ -47,25 +47,25 @@
 
       //Rate limiting
       "RateLimitOptions": {
-        "ClientWhitelist": [],                  //ip trong day se k bi anh huong boi rate limiting
-        "EnableRateLimiting": true,             //bat rate limiting
-        "Period": "15s",                        //thoi gian rate limiting
-        "PeriodTimespan": 1,                    //sau so giay nay co the gui lai request
-        "Limit": 1                              //so request toi da
+        "ClientWhitelist": [],                 //ip trong day se k bi anh huong boi rate limiting
+        "EnableRateLimiting": true,            //bat rate limiting
+        "Period": "15s",                       //thoi gian rate limiting
+        "PeriodTimespan": 1,                   //sau so giay nay co the gui lai request
+        "Limit": 1                             //so request toi da
       },
 
       //Caching
       "FileCacheOptions": {
-        "TtlSeconds": 15,                       //thoi gian cache  
-        "Region": "beCache"                     //ten nhom cache
+        "TtlSeconds": 15,                      //thoi gian cache  
+        "Region": "beCache"                    //ten nhom cache
       },
 
       //neu server k tra response trong 2 sec, throw exception
       //server throw exception lan thu hai, server khong dc truy cap trong 5 sec
       "QoSOptions": {
-        "ExceptionsAllowedBeforeBreaking": 2,   //so lan exception cho phep truoc khi break
-        "DurationOfBreak": 5000,                //thoi gian break khi throw exception
-        "TimeoutValue": 2000                    //timeout throw exception
+        "ExceptionsAllowedBeforeBreaking": 2,  //so lan exception cho phep truoc khi break
+        "DurationOfBreak": 5000,               //thoi gian break khi throw exception
+        "TimeoutValue": 2000                   //timeout throw exception
       }
     },
 
@@ -89,7 +89,7 @@
     "BaseUrl": "https://localhost:5021"
   }
 
-
+  //Aggregation by key
   // https://localhost:1111/duong
   // https://localhost:2222/dozun
   //"Routes": [
@@ -129,4 +129,28 @@
   //  ],
   //  "UpstreamPathTemplate": "/"
   //}
+
+
+  //Load Balancing
+  //"Routes": [
+  //  {
+  //    "DownstreamPathTemplate": "/cart-api/{controller}/{action}",
+  //    "DownstreamScheme": "https",
+  //    "DownstreamHostAndPorts": [
+  //      {
+  //        "Host": "10.0.1.10",
+  //        "Port": 1111
+  //      },
+  //      {
+  //        "Host": "10.0.1.11",
+  //        "Port": 1111
+  //      }
+  //    ],
+  //    "UpstreamPathTemplate": "/cart-gateway/{controller}/{action}",
+  //    "LoadBalancerOptions": {
+  //      "Type": "LeastConnection"             //chuyen request den server co it ket noi nhat
+  //    },
+  //    "UpstreamHttpMethod": [ "Put", "Delete" ]
+  //  }
+  //]
 }
