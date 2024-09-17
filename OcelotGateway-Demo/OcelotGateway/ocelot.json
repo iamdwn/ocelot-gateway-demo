@@ -1,5 +1,38 @@
 {
   "Routes": [
+    //PRIVATE SERVICE (Pass authen moi duoc truy cap)
+    {
+      "DownstreamPathTemplate": "*/private-api/{controller}/{action}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8001
+        }
+      ],
+      "UpstreamPathTemplate": "*/private-gateway/{controller}/{action}",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
+    },
+
+    //AUTHEN SERVICE
+    {
+      "DownstreamPathTemplate": "*/authen-api/{controller}/{action}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7001
+        }
+      ],
+      "UpstreamPathTemplate": "*/authen-gateway/{controller}/{action}",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+
+    //CART SERVICE
     {
       "DownstreamPathTemplate": "/cart-api/{controller}/{action}",
       "DownstreamScheme": "https",
@@ -27,7 +60,7 @@
   ],
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:5021"
-  },
+  }
 
 
   // https://localhost:1111/duong
