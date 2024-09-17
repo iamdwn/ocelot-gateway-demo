@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using Ocelot.Cache.CacheManager;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Provider.Polly;
 using System.Text;
 
 namespace OcelotGateway
@@ -48,7 +49,8 @@ namespace OcelotGateway
             builder.Services.AddOcelot().AddCacheManager(x =>
             {
                 x.WithDictionaryHandle();
-            });
+            })
+            .AddPolly();
             builder.Services.AddOcelot(configuration);
 
             var app = builder.Build();

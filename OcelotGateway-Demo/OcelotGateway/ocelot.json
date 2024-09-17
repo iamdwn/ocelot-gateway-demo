@@ -44,18 +44,32 @@
       ],
       "UpstreamPathTemplate": "/cart-gateway/{controller}/{action}",
       "UpstreamHttpMethod": [ "Get", "Post" ],
+
+      //Rate limiting
       "RateLimitOptions": {
-        "ClientWhitelist": [],        //ip trong day se k bi anh huong boi rate limiting
-        "EnableRateLimiting": true,   //bat rate limiting
-        "Period": "15s",              //thoi gian rate limiting
-        "PeriodTimespan": 1,          //sau so giay nay co the gui lai request
-        "Limit": 1                    //so request toi da
+        "ClientWhitelist": [],                  //ip trong day se k bi anh huong boi rate limiting
+        "EnableRateLimiting": true,             //bat rate limiting
+        "Period": "15s",                        //thoi gian rate limiting
+        "PeriodTimespan": 1,                    //sau so giay nay co the gui lai request
+        "Limit": 1                              //so request toi da
       },
+
+      //Caching
       "FileCacheOptions": {
-        "TtlSeconds": 15,             //thoi gian cache  
-        "Region": "beCache"           //ten nhom cache
+        "TtlSeconds": 15,                       //thoi gian cache  
+        "Region": "beCache"                     //ten nhom cache
+      },
+
+      //neu server k tra response trong 2 sec, throw exception
+      //server throw exception lan thu hai, server khong dc truy cap trong 5 sec
+      "QoSOptions": {
+        "ExceptionsAllowedBeforeBreaking": 2,   //so lan exception cho phep truoc khi break
+        "DurationOfBreak": 5000,                //thoi gian break khi throw exception
+        "TimeoutValue": 2000                    //timeout throw exception
       }
     },
+
+
 
     //PRODUCT SERVICE
     {
